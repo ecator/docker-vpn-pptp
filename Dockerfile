@@ -1,8 +1,8 @@
 FROM ubuntu:16.04
-MAINTAINER Przemek Szalko <przemek@mobtitude.com>
+MAINTAINER Przemek Szalko <przemek@mobtitude.com> Martin Qu <qule520@126.com>
 
 ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get update && apt-get install -y pptpd iptables
+RUN apt-get update && apt-get install -y pptpd iptables wget jq
 
 COPY ./etc/pptpd.conf /etc/pptpd.conf
 COPY ./etc/ppp/pptpd-options /etc/ppp/pptpd-options

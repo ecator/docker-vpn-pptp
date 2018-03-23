@@ -1,0 +1,15 @@
+sudo: required
+language: bash
+services:
+  - docker
+before_install:
+  - export PGM_NAME="docker-vpn-pptp"
+script:
+  - docker build -t $DOCKER_USERNAME/$PGM_NAME .
+  - docker images
+  - docker run -d --privileged --name $PGM_NAME -p 1723:1723 --env-file ./vpn.env.example $DOCKER_USERNAME/$PGM_NAME
+  - docker ps -a
+  - docker logs $PGM_NAME
+after_success:
+    - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+    - docker push $DOCKER_USERNAME/$PGM_NAME
